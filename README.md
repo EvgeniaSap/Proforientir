@@ -20,6 +20,7 @@ At the time of development of the software package in 2020, the new Google priva
 - To edit materials for ongoing career guidance events, Internet access is required, since the files for career guidance events are stored on the GoogleDrive of the Proforientir system.
 - To view the results of the student survey, you need access to the Internet and prior authorization in the Google Drive of the Proforientir system.
 - Internet access is required to update information on the labor market, as data is collected from open job sites.
+- The "administrator" has the opportunity to register employees of the department with the access type "employee" by default, while you must specify the full name and mail. An invitation with a one-time code is sent to the specified mail of the employee, with which he completes the registration process on his own, namely, he indicates the login and password. Subsequently, the "administrator" can increase or decrease the access rights of an employee. The registration of a student is similar, however, the initiator can be not only an "administrator", but also an employee of the department.
 
 
 
