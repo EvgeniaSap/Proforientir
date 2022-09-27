@@ -16,10 +16,10 @@ By default, an account with access type "administrator" is registered in the sys
 
 At the time of development of the software package in 2020, the new Google privacy policy of 2022 has not yet entered into force, which prohibits access to applications that have not passed OAuth authentication. Therefore, some functions of the software package may not be available.
 ### Administrator access type
-[^-]: To add information about a new student, Internet access is required, since enrollment orders are downloaded from the university website.
-[^-]: To edit materials for ongoing career guidance events, Internet access is required, since the files for career guidance events are stored on the GoogleDrive of the Proforientir system.
-[^-]: To view the results of the student survey, you need access to the Internet and prior authorization in the Google Drive of the Proforientir system.
-[^-]: Internet access is required to update information on the labor market, as data is collected from open job sites.
+- To add information about a new student, Internet access is required, since enrollment orders are downloaded from the university website.
+- To edit materials for ongoing career guidance events, Internet access is required, since the files for career guidance events are stored on the GoogleDrive of the Proforientir system.
+- To view the results of the student survey, you need access to the Internet and prior authorization in the Google Drive of the Proforientir system.
+- Internet access is required to update information on the labor market, as data is collected from open job sites.
 
 
 
