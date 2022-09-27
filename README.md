@@ -1,6 +1,6 @@
 # Proforientir
 Software package for monitoring the career guidance work of the university department
-## The functionality of the software package
+## Software package functionality
 - Collection and evaluation of information on the number of enrolled students for time periods and average scores.
 - Tracking student activity.
 - Collection and storage of information about the topic and results of career guidance and scientific events.
