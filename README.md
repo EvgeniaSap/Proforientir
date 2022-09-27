@@ -2,9 +2,9 @@
 Software package for monitoring the career guidance work of the university department
 # Building and running the project
 The software package was developed for use in a local network.
-
+### Server
 Import from the "ServerProforientir" folder the ```career_guidance.sql``` file containing the database of the software package. Then run the ```index.php``` file on the server.
-
+### PC
 Before running the application, find the ```units.txt``` file in the "Proforientir" project folder. In the ```units.txt file```, enter the address of the host where the server is deployed as the first line.The next lines of the file are the name (2nd line) and password (3rd line) of the database user.
 
 Some features require an internet connection.
