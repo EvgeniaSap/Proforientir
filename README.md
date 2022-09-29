@@ -11,7 +11,7 @@ Software package for monitoring the career guidance work of the university depar
 The software package was developed for use in a local network.
 ### Server
 1. Install the [WampServer 3](https://www.wampserver.com/) web server build.
-2. Run phpMyAdmin.
+2. Run `phpMyAdmin`.
 3. Import from the "ServerProforientir" folder the ```career_guidance.sql``` file containing the database of the software package. 
 4. Then run the ```index.php``` file on the server.
 ### PC
