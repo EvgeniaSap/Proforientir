@@ -36,13 +36,13 @@ At the time of development of the software package in 2020, the new Google priva
 - To view the results of the student survey, you need access to the Internet and prior authorization in the Google Drive of the Proforientir system.
 - Internet access is required to update information on the labor market, as data is collected from open job sites.
 - The "administrator" has the opportunity to register employees of the department with the access type "employee" by default, while you must specify the full name and mail. An invitation with a one-time code is sent to the specified mail of the employee, with which he completes the registration process on his own, namely, he indicates the login and password. Subsequently, the "administrator" can increase or decrease the access rights of an employee. The registration of a student is similar, however, the initiator can be not only an "administrator", but also an employee of the department.
-
-Access type "Administrator" allows extended functionality: 
+### Access type
+"Administrator" allows extended functionality: 
 - registration of a new employee, 
 - updating information in the database, 
 - viewing statistical graphs based on the results of the department's work.
 - all functions of other access levels.
 
-Access type "Student" allows you to view career guidance activities of the department and materials (presentations, reports, etc.) for this.
+"Student" allows you to view career guidance activities of the department and materials (presentations, reports, etc.) for this.
 
-Access type "Employee" allows not only viewing, but also editing data about events.
+"Employee" allows not only viewing, but also editing data about events.
