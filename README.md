@@ -46,3 +46,5 @@ At the time of development of the software package in 2020, the new Google priva
 "Student" allows you to view career guidance activities of the department and materials (presentations, reports, etc.) for this.
 
 "Employee" allows not only viewing, but also editing data about events.
+
+See the Use ![Case Diagram for details]() on the available features.
