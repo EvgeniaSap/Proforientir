@@ -46,4 +46,3 @@ Access type "Administrator" allows extended functionality:
 Access type "Student" allows you to view career guidance activities of the department and materials (presentations, reports, etc.) for this.
 
 Access type "Employee" allows not only viewing, but also editing data about events.
-
