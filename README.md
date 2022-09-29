@@ -16,10 +16,11 @@ The software package was developed for use in a local network.
 4. Move the `index.php` file from the "ServerProforientir" folder to `...\wamp\www`.
 5. Then run the `index.php`.
 ### PC
-Before running the application, find the ```units.txt``` file in the "Proforientir" project folder. In the ```units.txt file```, enter the address of the host where the server is deployed as the first line.The next lines of the file are the name (2nd line) and password (3rd line) of the database user.
-
-To perform some functions, a user with an "administrator" access type will also need to move the contents of the "www" folder to the root folder of the computer's host. 
-Next, find the ```path.txt``` file in the "Proforientir" folder and enter the path to the folder where the files from "www" were transferred.
+1. Find the `units.txt` file in the "Proforientir" project folder. 
+2. In the `units.txt` file, enter the address of the host where the server is deployed as the first line.The next lines of the file are the name (2nd line) and password (3rd line) of the database user.
+To perform some functions, a user with an "administrator" access type will also need:
+3. Move the files of the "www" folder to the root folder of the computer's host (for example `...\wamp\www`). 
+4. Find the `path.txt` file in the "Proforientir" folder and enter the path to the folder where the files from "www" were transferred.
 ## Using the Proforientir
 By default, an account with access type "administrator" is registered in the system with login: ```admin```, password: ```1234```. After the authorization, a button for editing personal data is available, where you can change the default values.
 
