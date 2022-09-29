@@ -10,7 +10,10 @@ Software package for monitoring the career guidance work of the university depar
 ## Building and running the project
 The software package was developed for use in a local network.
 ### Server
-Import from the "ServerProforientir" folder the ```career_guidance.sql``` file containing the database of the software package. Then run the ```index.php``` file on the server.
+1. Install the WampServer 3 web server build.
+2. Run phpMyAdmin.
+-3. Import from the "ServerProforientir" folder the ```career_guidance.sql``` file containing the database of the software package. 
+4. Then run the ```index.php``` file on the server.
 ### PC
 Before running the application, find the ```units.txt``` file in the "Proforientir" project folder. In the ```units.txt file```, enter the address of the host where the server is deployed as the first line.The next lines of the file are the name (2nd line) and password (3rd line) of the database user.
 
