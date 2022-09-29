@@ -18,6 +18,7 @@ The software package was developed for use in a local network.
 ### PC
 1. Find the `units.txt` file in the "Proforientir" project folder. 
 2. In the `units.txt` file, enter the address of the host where the server is deployed as the first line.The next lines of the file are the name (2nd line) and password (3rd line) of the database user.
+
 To perform some functions, a user with an "administrator" access type will also need:
 3. Move the files of the "www" folder to the root folder of the computer's host (for example `...\wamp\www`). 
 4. Find the `path.txt` file in the "Proforientir" folder and enter the path to the folder where the files from "www" were transferred.
