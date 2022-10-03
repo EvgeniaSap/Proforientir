@@ -12,7 +12,6 @@
 --строительство 4
 <?php
 require_once("phpQuery.php");
-//require_once 'mySQLconnect.php';
 
 
 //САЙТ 1
@@ -21,37 +20,27 @@ $html = file_get_contents("https://www.rabota.ru/");
 //медицина
 $part1 = stristr(stristr($html, '"Рестораны \u002F Питание"},{total:'), ',value:274,url:a,name:"Медицина \u002F Фармация \u002F Ветеринария"', true);
 $part2= substr($part1, stripos($part1, ":")+1);
-//var_dump( (integer)$part2);
 SQLquer(1, 3, (integer)$part2);
 
 //it
 $part3 = stristr(stristr($html, '"Медицина \u002F Фармация \u002F Ветеринария"},{total:'), ',value:b,url:a,name:"IT \u002F Интернет \u002F Телеком"', true);
 $part4= substr($part3, stripos($part3, ":")+1);
-//var_dump( (integer)$part4);
 SQLquer(1, 1, (integer)$part4);
 
 //строительство
 $p = stristr($html, '"Логистика \u002F Склад \u002F ВЭД"},{total:');
 $p1 = stristr($p, ',value', true);
 $part6 = substr($p1, stripos($p1, ":")+1);
-//var_dump( (integer)$part6);
 SQLquer(1, 4, (integer)$part6);
 
 //менеджмент
 $q = stristr($html, 'Кадры \u002F Подбор персонала"},{total:');
 $q1 = stristr($q, ',value', true);
 $part8 = substr($q1, stripos($q1, ":")+1);
-//var_dump( $q);
 SQLquer(1, 2, (integer)$part8);
 
 
 //САЙТ 2
-/*
-$pages[]= "https://www.superjob.ru/vakansii/it-internet-svyaz-telekom/?page="; //1-23 IT
-$pages[]= "https://www.superjob.ru/vakansii/medicina-farmacevtika-veterinariya/?page="; //1-59 medicin
-$pages[]= "https://www.superjob.ru/vakansii/marketing-reklama-pr/?page="; //1-11 menegm
-$pages[]= "https://www.superjob.ru/vakansii/stroitelstvo-proektirovanie-nedvizhimost/?page="; //1-61 build
-*/
 parser("https://www.superjob.ru/vakansii/it-internet-svyaz-telekom/?page=", 1); //1-23 IT
 parser("https://www.superjob.ru/vakansii/medicina-farmacevtika-veterinariya/?page=", 3); //1-59 medicin
 parser("https://www.superjob.ru/vakansii/marketing-reklama-pr/?page=", 2); //1-11 menegm
@@ -66,28 +55,18 @@ function parser($page, $k)
   while(($i <= 23 && $k==1) || ($i <= 59 && $k==3) ||($i <= 11 && $k==2) || ($i <= 61 && $k==4))
   {
     $html = file_get_contents($page.$i);
-
-    //var_dump($page.$i);
     $dom = phpQuery::newDocument($html);
+    $links = $dom ->find('a');
 
-      $links = $dom ->find('a');
-
-      	foreach ($links as $link) {
-
-      		$pqLink = pq($link); //pq делает объект phpQuery
-
-      	//	$text[] = $pqLink->html();
-          if($pqLink->attr('target') == "_blank"){
-        	//	$buff = $pqLink->attr('href');
+    foreach ($links as $link) {
+      	$pqLink = pq($link); //pq делает объект phpQuery
+        if($pqLink->attr('target') == "_blank"){
             $count++;
           }
       	}
-        //var_dump($buff);
       $i++;
   }
   SQLquer(2, $k, $count);
-  //var_dump($count);
-  //  $count=0;
 }
 
 //САЙТ 3
@@ -119,12 +98,10 @@ function parserZP($pageF, $pageL, $k)
   if($k==1 ||$k==3){
     $count = 25*3;
 	SQLquer(3, $k, $count);
-    //var_dump($count);
   }
   if($k==2 || $k==4){
     $count = 25*5;
 	SQLquer(3, $k, $count);
-   // var_dump($count);
   }
 }
 
@@ -151,52 +128,42 @@ function parserGR($page, $k)
 
     $part1 = stristr(stristr($html, 'У нас Вы найдете  более '), ' свежих вакансий от прямых работодателей, с зарплатой', true);
     $part2= substr($part1, strrpos($part1, " "));
-    //var_dump((integer)$part2);
-	SQLquer(5, $k, (integer)$part2);
+    SQLquer(5, $k, (integer)$part2);
 }
 
 function SQLquer($idSite, $idField, $count)
 {
-	//require_once 'mySQLconnect.php';
 	$user = 'root';
-$password ='';
-$db = 'career_guidance';
-$host = 'localhost';
+	$password ='';
+	$db = 'career_guidance';
+	$host = 'localhost';
 
-$dsn = 'mysql:host='.$host.';dbname='.$db;
-//$dsn_Option = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]; //вывод ошибок с бд
-$pdo = new PDO($dsn, $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+	$dsn = 'mysql:host='.$host.';dbname='.$db;
+	//$dsn_Option = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]; //вывод ошибок с бд
+	$pdo = new PDO($dsn, $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 	
-$sql = 'SELECT `id_labor_market`  
- FROM `labor_market`  
- WHERE `id_website` = :id1 AND `id_field` = :id2';
-$query = $pdo->prepare($sql);
-$query->execute(['id1' => $idSite, 'id2' => $idField]);
+	$sql = 'SELECT `id_labor_market`  
+ 		FROM `labor_market`  
+ 		WHERE `id_website` = :id1 AND `id_field` = :id2';
+	$query = $pdo->prepare($sql);
+	$query->execute(['id1' => $idSite, 'id2' => $idField]);
 
-$entry = $query->fetch(PDO::FETCH_OBJ); //массив, объекты которого - записи одного мероприятия на одну дату, но на разное время
+	$entry = $query->fetch(PDO::FETCH_OBJ); //массив, объекты которого - записи одного мероприятия на одну дату, но на разное время
 
-$id_labM = 0;
-if(isset($entry->id_labor_market))
-{
-	$id_labM = $entry->id_labor_market;
-	//echo $id_labM;
-	
-	$sql = 'UPDATE `labor_market` SET `count` = :kol WHERE `id_labor_market` = :id';
-
-  $query = $pdo->prepare($sql);
-  $query->execute(['kol'=> $count, 'id' => $id_labM]);
-}
-else
-{
-	//echo $id_labM;
-	$sql = 'INSERT INTO labor_market(id_website, id_field, count) VALUES( :id_w, :id_f, :kol)';
-  $query = $pdo->prepare($sql); //возвращает объект
-
-  $query->execute([':id_w'=> $idSite, 'id_f' => $idField, 'kol'=> $count]);
-
-}	
-		
-		
+	$id_labM = 0;
+	if(isset($entry->id_labor_market))
+	{
+		$id_labM = $entry->id_labor_market;
+		$sql = 'UPDATE `labor_market` SET `count` = :kol WHERE `id_labor_market` = :id';
+  		$query = $pdo->prepare($sql);
+  		$query->execute(['kol'=> $count, 'id' => $id_labM]);
+	}
+	else
+	{
+		$sql = 'INSERT INTO labor_market(id_website, id_field, count) VALUES( :id_w, :id_f, :kol)';
+  		$query = $pdo->prepare($sql); //возвращает объект
+  		$query->execute([':id_w'=> $idSite, 'id_f' => $idField, 'kol'=> $count]);
+	}	
 }
 
 phpQuery::unloadDocuments();
