@@ -1,199 +1,52 @@
 <?php
-//composer require smalot/pdfparser
-//mb_internal_encoding("UTF-8");
 header('Content-Type: text/html; charset=utf-8');
-// header('Content-Transfer-Encoding: utf-8'); //changed to chunked
 include 'pdftoolbox-standalone-client-master/vendor/autoload.php';
 require_once("phpQuery.php");
-//require_once("print/print.tpl.php");
-//require_once("dompdf");
 $site = "https://priem.mai.ru/results/orders/";
 $html = file_get_contents($site);
 
-//$html = file_get_contents("https://yandex.ru/");
 $dom = phpQuery::newDocument($html);
-//var_dump($html);
 
 $pagesName = $dom ->find('.subnav__text')->text(); //страницы приказов
-$pagesLink = $dom ->find('.subnav__link'); //->attr('href');
-//var_dump($pages2);
-//$pages = $dom ->find('a');
-//var_dump($pages);
+$pagesLink = $dom ->find('.subnav__link'); 
+
 $fp = fopen('C:\Users\PC\Documents\Visual Studio 2015\Projects\Proforientir\WebParse\pdfstud.txt', 'w');
 if ($fp)
 {
-foreach ($pagesLink as $pagel) {
-  $pqPage = pq($pagel); //pq делает объект phpQuery
-  $hrefP = $pqPage->attr('href');
-  $hrefPN = $pqPage->text();
-  $test = fwrite($fp, $hrefPN ."\r\n"); // Запись в файл
-  //$test = fwrite($fp, "\n"); // Запись в файл
- if ($test){
-
-   //var_dump($hrefPN);
-
-   $siteord = substr($site, 0, 20) . $hrefP;
-   $html1 = file_get_contents($siteord);
-   $dom1 = phpQuery::newDocument($html1);
-
-   $ords = $dom1 ->find('a');
-   foreach ($ords as $ord) {
-
-     $pqOrd = pq($ord); //pq делает объект phpQuery
-
-     if($pqOrd->attr('target') == "_blank" && stristr($pqOrd->text(), 'Приказ') != null){
-       $hrefO = $pqOrd->attr('href');
-       $hrefName = $pqOrd->text();
-
-       $test = fwrite($fp, $hrefName ."\r\n"); // Запись в файл
-    //   $test = fwrite($fp, "\n"); // Запись в файл
-       $test = fwrite($fp, $hrefO ."\r\n"); // Запись в файл
-    //   $test = fwrite($fp, "\n"); // Запись в файл
-       if ($test){
-         echo 'Запись прошла успешно.';
-       }
+  foreach ($pagesLink as $pagel) {
+    $pqPage = pq($pagel); //pq делает объект phpQuery
+    $hrefP = $pqPage->attr('href');
+    $hrefPN = $pqPage->text();
+    $test = fwrite($fp, $hrefPN ."\r\n"); // Запись в файл
+    if ($test){
+      $siteord = substr($site, 0, 20) . $hrefP;
+      $html1 = file_get_contents($siteord);
+      $dom1 = phpQuery::newDocument($html1);
+      $ords = $dom1 ->find('a');
+      foreach ($ords as $ord) {
+        $pqOrd = pq($ord); //pq делает объект phpQuery
+        if($pqOrd->attr('target') == "_blank" && stristr($pqOrd->text(), 'Приказ') != null){
+          $hrefO = $pqOrd->attr('href');
+          $hrefName = $pqOrd->text();
+          $test = fwrite($fp, $hrefName ."\r\n"); // Запись в файл
+          $test = fwrite($fp, $hrefO ."\r\n"); // Запись в файл
+        if ($test){
+          echo 'Запись прошла успешно.';
+        }
        else echo 'Ошибка при записи в файл.';
      }
    }
-
  }
-   else echo 'Ошибка при записи в файл.';
+ else echo 'Ошибка при записи в файл.';
  }
 }
 else echo "Ошибка при открытии файла";
 
 fclose($fp); //Закрытие файла
 
-
-
-/*foreach ($hrefP as $href) {
-$siteord = substr($site, 0, 20) . $href;
-$html1 = file_get_contents($siteord);
-$dom1 = phpQuery::newDocument($html1);
-
-$ords = $dom1 ->find('a');
-foreach ($ords as $ord) {
-
-  $pqOrd = pq($ord); //pq делает объект phpQuery
-
-  if($pqOrd->attr('target') == "_blank" && stristr($pqOrd->text(), 'Приказ') != null){
-    $hrefO[] = $pqOrd->attr('href');
-  }
-}
-}*/
-
-//запись в файл стр html
-/*$html2 = file_get_contents($hrefO[0]);
-
-$fp = fopen('C:\Users\PC\Documents\Visual Studio 2015\Projects\Proforientir\WebParse\pdfstud.txt', 'w');
-
-if ($fp)
-{
-$var = pdf2text($html2);
- $test = fwrite($fp, $var); // Запись в файл
-if ($test) echo 'Данные в файл успешно занесены.';
-  else echo 'Ошибка при записи в файл.';
-}
-else echo "Ошибка при открытии файла";
-
-fclose($fp); //Закрытие файла*/
-
-/*foreach ($hrefO as $href) {
-
-//$html2 = file_get_contents($href);
-//$var = iconv('utf-8', 'windows-1251', $html2); //для переменной $var
-//var_dump($html2);
-//echo $html2;
-
-//drupal
-/*if (function_exists('utf8_decode')) {
-    $html2 = utf8_decode($html2);
-    var_dump('1');
-  }
-// iconv fails silently when it encounters something that it doesn't know, so don't use it
-//  else if (function_exists('iconv')) {
-//    $html = iconv('UTF-8', 'ISO-8859-1', $html);
-//  }
-  elseif (function_exists('mb_convert_encoding')) {
-    $html2 = mb_convert_encoding($html2, 'ISO-8859-1', 'UTF-8');
-    var_dump('2');
-  }
-  elseif (function_exists('recode_string')) {
-    $html2 = recode_string('UTF-8..ISO_8859-1', $html2);
-    var_dump('3');
-  }
-  $html2 = htmlspecialchars_decode(htmlentities($html2, ENT_NOQUOTES, 'ISO-8859-1'), ENT_NOQUOTES);*/
-//var_dump($href);
-
-//исп класс
-/*$a = new PDF2Text();
-$a->setFilename($html2); //grab the test file at http://www.newyorklivearts.org/Videographer_RFP.pdf
-$a->decodePDF();
-echo $a->output();*/
-
-
-
-//echo $html2;
-  // Parse pdf file and build necessary objects. выв числами
-/*  $server_file = $href;
-
-  $parser = new \Smalot\PdfParser\Parser();
-  $pdf = $parser->parseFile($href);
-  if ($pdf != "") {
-    $original_text = $pdf->getText();
- if ($original_text != "") {
-     $text = nl2br($original_text); // Paragraphs and line break formatting
-     $text = clean_ascii_characters($text); // Check special characters
-     $text = str_replace(array("<br /> <br /> <br />", "<br> <br> <br>"), "<br /> <br />", $text); // Optional
-     $text = addslashes($text); // Backslashes for single quotes
-     $text = stripslashes($text);
-     $text = strip_tags($text);
-
-     /**********************************************/
-     /* Additional step to check formatting issues */
-     // There may be some PDF formatting issues. I'm trying to check if the words are:
-     // (a) Join. E.g., HelloWorld!Thereisnospacingbetweenwords
-     // (b) splitted. E.g., H e l l o W o r l d ! E x c e s s i v e s p a c i n g
-  /*   $check_text = preg_split('/\s+/', $text, -1, PREG_SPLIT_NO_EMPTY);
-
-     $no_spacing_error = 0;
-     $excessive_spacing_error = 0;
-     foreach($check_text as $word_key => $word) {
-         if (strlen($word) >= 30) { // 30 is a limit that I set for a word length, assuming that no word would be 30 length long
-             $no_spacing_error++;
-         } else if (strlen($word) == 1) { // To check if the word is 1 word length
-             if (preg_match('/^[A-Za-z]+$/', $word)) { // Only consider alphabetical words and ignore numbers.
-                 $excessive_spacing_error++;
-             }
-         }
-     }
-
-     // Set the boundaries of errors you can accept
-     // E.g., we reject the change if there are 30 or more $no_spacing_error or 150 or more $excessive_spacing_error issues
-     if ($no_spacing_error >= 30 || $excessive_spacing_error >= 150) {
-         echo "Too many formatting issues<br />";
-         echo $text;
-     } else {
-         echo "Success!<br />";
-         echo $text;
-     }
-     /* End of additional step */
-     /**************************/
-
- /*} else {
-     echo "No text extracted from PDF.";
- }
-} else {
- echo "parseFile fns failed. Not a PDF.";
-}*/
-
-
-
-//}
-
-
 phpQuery::unloadDocuments();
 
+// Старые варианты
 // Common function выв числами
 /*function clean_ascii_characters($string) {
     $string = str_replace(array('-', '–'), '-', $string);
